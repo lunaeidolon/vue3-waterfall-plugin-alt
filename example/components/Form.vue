@@ -11,24 +11,39 @@
     <el-form-item label="imgSelector">
       <el-input v-model="config.imgSelector" disabled />
     </el-form-item>
-    <el-divider content-position="left">
-      排版
-    </el-divider>
+    <el-divider content-position="left"> 排版 </el-divider>
     <el-form-item label="width">
-      <el-input-number v-model="config.width" :min="0" :step="10" style="width: 100%" />
+      <el-input-number
+        v-model="config.width"
+        :min="0"
+        :step="10"
+        style="width: 100%"
+      />
     </el-form-item>
 
     <el-form-item label="gutter">
-      <el-input-number v-model="config.gutter" :min="0" :step="2" style="width: 100%" />
+      <el-input-number
+        v-model="config.gutter"
+        :min="0"
+        :step="2"
+        style="width: 100%"
+      />
+    </el-form-item>
+
+    <el-form-item label="gutterRow">
+      <el-input-number
+        v-model="config.gutterRow"
+        :min="0"
+        :step="2"
+        style="width: 100%"
+      />
     </el-form-item>
 
     <el-form-item label="hasAroundGutter">
       <el-switch v-model="config.hasAroundGutter" />
     </el-form-item>
 
-    <el-divider content-position="left">
-      动画
-    </el-divider>
+    <el-divider content-position="left"> 动画 </el-divider>
     <el-form-item label="animationEffect">
       <el-select
         v-model="config.animationEffect"
@@ -69,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref } from "vue"
 
 const props = defineProps({
   form: {
@@ -82,23 +97,22 @@ const config = reactive(props.form)
 
 const effectOptions = ref([
   {
-    label: 'fadeIn',
-    value: 'fadeIn',
+    label: "fadeIn",
+    value: "fadeIn",
   },
   {
-    label: 'fadeInUp',
-    value: 'animate__fadeInUp',
+    label: "fadeInUp",
+    value: "animate__fadeInUp",
   },
   {
-    label: 'fadeInDown',
-    value: 'animate__fadeInDown',
+    label: "fadeInDown",
+    value: "animate__fadeInDown",
   },
   {
-    label: 'zoomIn',
-    value: 'animate__zoomIn',
+    label: "zoomIn",
+    value: "animate__zoomIn",
   },
 ])
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

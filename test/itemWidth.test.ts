@@ -4,11 +4,11 @@
  * @LastEditors: Yaowen Liu
  * @LastEditTime: 2022-11-07 11:37:25
  */
-import { describe, expect, it } from 'vitest'
-import { getItemWidth } from '../lib/utils/itemWidth'
+import { describe, expect, it } from "vitest"
+import { getItemWidth } from "../lib/utils/itemWidth"
 
-describe('item 的宽度', () => {
-  it('无断点', () => {
+describe("item 的宽度", () => {
+  it("无断点", () => {
     const params = {
       breakpoints: {
         1200: { rowPerView: 3 },
@@ -18,12 +18,13 @@ describe('item 的宽度', () => {
       wrapperWidth: 1400,
       initWidth: 200,
       gutter: 10,
+      gutterRow: 10,
       hasAroundGutter: true,
     }
-    expect(getItemWidth(params)).toMatchInlineSnapshot('200')
+    expect(getItemWidth(params)).toMatchInlineSnapshot("200")
   })
 
-  it('有断点', () => {
+  it("有断点", () => {
     const params = {
       breakpoints: {
         1200: { rowPerView: 3 },
@@ -33,8 +34,9 @@ describe('item 的宽度', () => {
       wrapperWidth: 940,
       initWidth: 200,
       gutter: 10,
+      gutterRow: 10,
       hasAroundGutter: true,
     }
-    expect(getItemWidth(params)).toMatchInlineSnapshot('300')
+    expect(getItemWidth(params)).toMatchInlineSnapshot("300")
   })
 })

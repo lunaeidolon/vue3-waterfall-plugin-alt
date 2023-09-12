@@ -4,19 +4,25 @@
  * @LastEditors: Yaowen Liu
  * @LastEditTime: 2023-03-01 16:38:44
  */
-import type { Ref } from 'vue'
-import { ref } from 'vue'
-import { addClass, hasClass, prefixStyle } from '../utils/dom'
-import type { WaterfallProps } from '../types/waterfall'
-import type { CssStyleObject, Nullable } from '../types/util'
+import type { Ref } from "vue"
+import { ref } from "vue"
+import { addClass, hasClass, prefixStyle } from "../utils/dom"
+import type { WaterfallProps } from "../types/waterfall"
+import type { CssStyleObject, Nullable } from "../types/util"
 
-const transform = prefixStyle('transform')
-const duration = prefixStyle('animation-duration')
-const delay = prefixStyle('animation-delay')
-const transition = prefixStyle('transition')
-const fillMode = prefixStyle('animation-fill-mode')
+const transform = prefixStyle("transform")
+const duration = prefixStyle("animation-duration")
+const delay = prefixStyle("animation-delay")
+const transition = prefixStyle("transition")
+const fillMode = prefixStyle("animation-fill-mode")
 
-export function useLayout(props: WaterfallProps, colWidth: Ref<number>, cols: Ref<number>, offsetX: Ref<number>, waterfallWrapper: Ref<Nullable<HTMLElement>>) {
+export function useLayout(
+  props: WaterfallProps,
+  colWidth: Ref<number>,
+  cols: Ref<number>,
+  offsetX: Ref<number>,
+  waterfallWrapper: Ref<Nullable<HTMLElement>>,
+) {
   const posY = ref<number[]>([])
   const wrapperHeight = ref(0)
 
@@ -28,14 +34,16 @@ export function useLayout(props: WaterfallProps, colWidth: Ref<number>, cols: Re
 
   // 初始y
   const initY = (): void => {
-    posY.value = new Array(cols.value).fill(props.hasAroundGutter ? props.gutter : 0)
+    posY.value = new Array(cols.value).fill(
+      props.hasAroundGutter ? props.gutterRow : 0,
+    )
   }
 
   // 添加入场动画
   const animation = addAnimation(props)
 
   // 排版
-  const layoutHandle = async() => {
+  const layoutHandle = async () => {
     // 初始化y集合
     initY()
 
@@ -43,8 +51,7 @@ export function useLayout(props: WaterfallProps, colWidth: Ref<number>, cols: Re
     const items: HTMLElement[] = []
     if (waterfallWrapper && waterfallWrapper.value) {
       waterfallWrapper.value.childNodes.forEach((el: any) => {
-        if (el!.className === 'waterfall-item')
-          items.push(el)
+        if (el!.className === "waterfall-item") items.push(el)
       })
     }
 
@@ -70,12 +77,12 @@ export function useLayout(props: WaterfallProps, colWidth: Ref<number>, cols: Re
 
       // 更新当前index的y值
       const { height } = curItem.getBoundingClientRect()
-      posY.value[minYIndex] += height + props.gutter
+      posY.value[minYIndex] += height + props.gutterRow
 
       // 添加入场动画
       animation(curItem, () => {
         // 添加动画时间
-        if (transition) style[transition] = 'transform .3s'
+        if (transition) style[transition] = "transform .3s"
       })
     }
 
@@ -96,15 +103,12 @@ function addAnimation(props: WaterfallProps) {
       const durationSec = `${props.animationDuration / 1000}s`
       const delaySec = `${props.animationDelay / 1000}s`
       const style = content.style as CssStyleObject
-      style.visibility = 'visible'
-      if (duration)
-        style[duration] = durationSec
+      style.visibility = "visible"
+      if (duration) style[duration] = durationSec
 
-      if (delay)
-        style[delay] = delaySec
+      if (delay) style[delay] = delaySec
 
-      if (fillMode)
-        style[fillMode] = 'both'
+      if (fillMode) style[fillMode] = "both"
 
       addClass(content, props.animationPrefix)
       addClass(content, props.animationEffect)

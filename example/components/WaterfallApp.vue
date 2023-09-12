@@ -70,6 +70,7 @@ const options = reactive({
   rowKey: 'id',
   // 卡片之间的间隙
   gutter: 10,
+  gutterRow:10,
   // 是否有周围的gutter
   hasAroundGutter: true,
   // 卡片在PC上的宽度

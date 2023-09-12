@@ -7,27 +7,36 @@
  * @LastEditTime: 2023-08-23 13:19:44
 -->
 <template>
-  <div ref="waterfallWrapper" class="waterfall-list" :style="{ height: `${wrapperHeight}px` }">
+  <div
+    ref="waterfallWrapper"
+    class="waterfall-list"
+    :style="{ height: `${wrapperHeight}px` }"
+  >
     <div
       v-for="(item, index) in list"
       :key="getKey(item, index)"
       class="waterfall-item"
     >
       <div class="waterfall-card">
-        <slot name="item" :item="item" :index="index" :url="getRenderURL(item)" />
+        <slot
+          name="item"
+          :item="item"
+          :index="index"
+          :url="getRenderURL(item)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import { defineComponent, provide, ref, watch } from 'vue'
-import { useDebounceFn } from '@vueuse/core'
-import { useCalculateCols, useLayout } from '../use'
-import Lazy from '../utils/Lazy'
-import { getValue } from '../utils/util'
-import type { ViewCard } from '../types/waterfall'
+import type { PropType } from "vue"
+import { defineComponent, provide, ref, watch } from "vue"
+import { useDebounceFn } from "@vueuse/core"
+import { useCalculateCols, useLayout } from "../use"
+import Lazy from "../utils/Lazy"
+import { getValue } from "../utils/util"
+import type { ViewCard } from "../types/waterfall"
 
 export default defineComponent({
   props: {
@@ -37,11 +46,11 @@ export default defineComponent({
     },
     rowKey: {
       type: String,
-      default: 'id',
+      default: "id",
     },
     imgSelector: {
       type: String,
-      default: 'src',
+      default: "src",
     },
     width: {
       type: Number,
@@ -68,17 +77,21 @@ export default defineComponent({
       type: Number,
       default: 10,
     },
+    gutterRow: {
+      type: Number,
+      default: 10,
+    },
     hasAroundGutter: {
       type: Boolean,
       default: true,
     },
     animationPrefix: {
       type: String,
-      default: 'animate__animated',
+      default: "animate__animated",
     },
     animationEffect: {
       type: String,
-      default: 'fadeIn',
+      default: "fadeIn",
     },
     animationDuration: {
       type: Number,
@@ -90,7 +103,7 @@ export default defineComponent({
     },
     backgroundColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     lazyload: {
       type: Boolean,
@@ -98,7 +111,7 @@ export default defineComponent({
     },
     loadProps: {
       type: Object,
-      default: () => { },
+      default: () => {},
     },
     crossOrigin: {
       type: Boolean,
@@ -112,16 +125,11 @@ export default defineComponent({
 
   setup(props) {
     const lazy = new Lazy(props.lazyload, props.loadProps, props.crossOrigin)
-    provide('lazy', lazy)
+    provide("lazy", lazy)
 
     // 容器块信息
-    const {
-      waterfallWrapper,
-      wrapperWidth,
-      colWidth,
-      cols,
-      offsetX,
-    } = useCalculateCols(props)
+    const { waterfallWrapper, wrapperWidth, colWidth, cols, offsetX } =
+      useCalculateCols(props)
 
     // 容器高度，块定位
     const { wrapperHeight, layoutHandle } = useLayout(
@@ -154,10 +162,10 @@ export default defineComponent({
     //   sizeChangeTime.value += 1
     // }, { debounce: props.delay })
 
-    provide('sizeChangeTime', sizeChangeTime)
+    provide("sizeChangeTime", sizeChangeTime)
 
     // 图片加载完成
-    provide('imgLoaded', renderer)
+    provide("imgLoaded", renderer)
 
     // 根据选择器获取图片地址
     const getRenderURL = (item: ViewCard): string => {

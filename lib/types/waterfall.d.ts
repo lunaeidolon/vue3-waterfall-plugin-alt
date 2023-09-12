@@ -27,6 +27,7 @@ export interface WaterfallProps {
   animationEffect: string
   hasAroundGutter: boolean
   gutter: number
+  gutterRow: number
   list: ViewCard[]
   animationPrefix: string
 }
@@ -35,6 +36,7 @@ export interface ItemWidthProps {
   breakpoints: Breakpoints
   wrapperWidth: number
   gutter: number
+  gutterRow: number
   hasAroundGutter: boolean
   initWidth: number
 }
